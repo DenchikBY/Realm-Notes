@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import by.denchik.realmnotes.R
+import by.denchik.realmnotes.extensions.t
 import by.denchik.realmnotes.extensions.nextId
 import by.denchik.realmnotes.models.COLOR
 import by.denchik.realmnotes.models.Note
@@ -28,7 +29,7 @@ class AddActivity : AppCompatActivity() {
         ui.setContentView(this)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
-            title = resources.getString(if (note == null) R.string.add_note else R.string.edit_note)
+            title = resources.getString(t(note == null, R.string.add_note, R.string.edit_note))
         }
         if (note != null) {
             ui.titleEditText.setText(note?.title)
