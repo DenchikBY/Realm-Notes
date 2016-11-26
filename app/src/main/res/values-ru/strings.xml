@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Realm Notes</string>
+    <string name="notes">Заметки</string>
+    <string name="add">Добавить</string>
+    <string name="notes_count">Всего заметок:</string>
+    <string name="add_note">Добавить заметку</string>
+    <string name="edit_note">Изменить заметку</string>
+    <string name="note_text">Текст</string>
+    <string name="note_title">Заголовок</string>
+</resources>

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Realm Notes</string>
+    <string name="notes">Notes</string>
+    <string name="add">Add</string>
+    <string name="notes_count">Notes count:</string>
+    <string name="add_note">Add note</string>
+    <string name="edit_note">Edit note</string>
+    <string name="note_title">Title</string>
+    <string name="note_text">Text</string>
+</resources>
