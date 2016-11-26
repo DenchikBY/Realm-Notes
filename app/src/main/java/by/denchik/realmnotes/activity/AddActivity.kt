@@ -1,22 +1,19 @@
 package by.denchik.realmnotes.activity
 
+import android.app.Activity
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.view.MenuItem
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.RadioButton
-import android.widget.RadioGroup
+import android.widget.*
 import by.denchik.realmnotes.R
-import by.denchik.realmnotes.extensions.t
 import by.denchik.realmnotes.extensions.nextId
+import by.denchik.realmnotes.extensions.t
 import by.denchik.realmnotes.models.COLOR
 import by.denchik.realmnotes.models.Note
 import io.realm.Realm
 import org.jetbrains.anko.*
 
-class AddActivity : AppCompatActivity() {
+class AddActivity : Activity() {
 
     val ui = UI()
     val realm = Realm.getDefaultInstance()!!
@@ -27,7 +24,8 @@ class AddActivity : AppCompatActivity() {
         val id = intent.getLongExtra("id", 0)
         note = realm.where(Note::class.java).equalTo("id", id).findFirst()
         ui.setContentView(this)
-        supportActionBar?.apply {
+        setActionBar(ui.toolbar)
+        actionBar.apply {
             setDisplayHomeAsUpEnabled(true)
             title = resources.getString(t(note == null, R.string.add_note, R.string.edit_note))
         }
@@ -84,8 +82,14 @@ class AddActivity : AppCompatActivity() {
         lateinit var titleEditText: EditText
         lateinit var textEditText: EditText
         lateinit var colorRadioGroup: RadioGroup
+        lateinit var toolbar: Toolbar
         override fun createView(ui: AnkoContext<AddActivity>) = ui.apply {
             verticalLayout {
+                toolbar = toolbar(R.style.ThemeOverlay_AppCompat_Dark_ActionBar) {
+                    elevation = dip(4).toFloat()
+                    backgroundResource = R.color.colorPrimary
+                    popupTheme = R.style.ThemeOverlay_AppCompat_Light
+                }
                 titleEditText = editText {
                     hintResource = R.string.note_title
                 }
