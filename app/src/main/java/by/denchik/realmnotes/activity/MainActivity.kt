@@ -17,6 +17,7 @@ import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toolbar
 import by.denchik.realmnotes.R
+import by.denchik.realmnotes.extensions.changeStatusBarColor
 import by.denchik.realmnotes.models.COLOR
 import by.denchik.realmnotes.models.Note
 import io.realm.Realm
@@ -93,7 +94,7 @@ class MainActivity : Activity() {
     }
 
     fun secondToolbarMenu(menu: Menu) {
-        menu.add("All").apply {
+        menu.add(R.string.select_all).apply {
             setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
             setOnMenuItemClickListener {
                 for (i in 0..(notes.size - 1)) {
@@ -103,12 +104,11 @@ class MainActivity : Activity() {
                 return@setOnMenuItemClickListener true
             }
         }
-        menu.add("Delete").apply {
+        menu.add(R.string.delete).apply {
             setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
             setOnMenuItemClickListener {
-                for (i in selectedNotes.sortedDescending()) {
-                    ui.recycler.adapter.notifyItemRemoved(i)
-                    realm.executeTransaction {
+                realm.executeTransaction {
+                    for (i in selectedNotes.sortedDescending()) {
                         notes.deleteFromRealm(i)
                     }
                 }
@@ -132,6 +132,7 @@ class MainActivity : Activity() {
         if (selectedNotes.isEmpty()) {
             ui.firstToolbar.visibility = View.GONE
             ui.secondToolbar.visibility = View.VISIBLE
+            window.changeStatusBarColor(R.color.material_grey_600)
         }
         selectedNotes.add(position)
         val holder = ui.recycler.findViewHolderForAdapterPosition(position) as RecyclerViewAdapter.ViewHolder
@@ -152,6 +153,7 @@ class MainActivity : Activity() {
         if (selectedNotes.isEmpty()) {
             ui.firstToolbar.visibility = View.VISIBLE
             ui.secondToolbar.visibility = View.GONE
+            window.changeStatusBarColor(R.color.colorPrimaryDark)
         }
     }
 
@@ -204,7 +206,7 @@ class MainActivity : Activity() {
         }.view
     }
 
-    inner class RecyclerViewAdapter() : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+    inner class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val v = NoteUI().createView(AnkoContext.create(baseContext, parent))

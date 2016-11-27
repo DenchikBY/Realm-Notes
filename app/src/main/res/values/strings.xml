@@ -7,4 +7,6 @@
     <string name="edit_note">Edit note</string>
     <string name="note_title">Title</string>
     <string name="note_text">Text</string>
+    <string name="select_all">Select all</string>
+    <string name="delete">Delete</string>
 </resources>
